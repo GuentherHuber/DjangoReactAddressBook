@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
+APP_ENV=os.getenv('APP_ENV','development')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +32,16 @@ SECRET_KEY = 'django-insecure-%ahpr515(pcw(2kcev+!&0*ruhky!!a()nju1aitf3)r4-4x4*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+if APP_ENV=='production':
+    ALLOWED_HOSTS = [
+        'https://djangoreacttutorial.onrender.com',
+        ]
+else:
+    ALLOWED_HOSTS = [
+        'localhost',
+        '127.0.0.1',
+                     ]
 
 
 # Application definition
@@ -54,9 +69,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS=[
-    'http://localhost:3000',
-]
+if APP_ENV=='production':
+    CORS_ALLOWED_ORIGINS=[
+        'https://djangoreacttutorialfrontend.onrender.com',
+    ]
+else:
+    CORS_ALLOWED_ORIGINS=[
+        'http://localhost:3000',
+    ]
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -81,12 +101,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+if APP_ENV=='production':
+    DATABASES = {
+        'default':{
+            dj_database_url.parse(
+                'postgres://mydatabase_0qn6_user:hUt1gVT1mkoqGanG85wxRBItzJ31rmqG@dpg-d1mhgk2li9vc739jq16g-a:5432/mydatabase_0qn6'
+            )
+        },
     }
-}
+else:
+     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        },
+    }
 
 
 # Password validation

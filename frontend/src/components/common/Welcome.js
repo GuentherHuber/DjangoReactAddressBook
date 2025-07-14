@@ -6,7 +6,7 @@ function Welcome(){
         <>
             <h1>Willkommen</h1>
             <p>Verfügbare Funktionen:</p>
-            <Link to="/adressbook">- Adressbuch</Link>
+            <Link to="/addressbook">- Adressbuch</Link>
         </>
     )
 }
