@@ -104,11 +104,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 if APP_ENV=='production':
     DATABASES = {
-        'default':{
-            dj_database_url.parse(
-                'postgres://mydatabase_0qn6_user:hUt1gVT1mkoqGanG85wxRBItzJ31rmqG@dpg-d1mhgk2li9vc739jq16g-a:5432/mydatabase_0qn6'
-            )
-        },
+        'default':
+            dj_database_url.parse('postgres://mydatabase_0qn6_user:hUt1gVT1mkoqGanG85wxRBItzJ31rmqG@dpg-d1mhgk2li9vc739jq16g-a:5432/mydatabase_0qn6')
     }
 else:
      DATABASES = {
