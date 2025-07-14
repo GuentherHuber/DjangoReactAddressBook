@@ -1,0 +1,55 @@
+.addressCard{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    background-color:aliceblue;
+    width: 500px;
+    height: 220px;
+    border-radius: 15px;
+    padding:20px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    gap:40px;
+}
+
+.addressContent{
+  display: flex;
+  flex-direction: column;  
+  }
+
+  .addressContent h3,
+  .addressContent p{
+    margin:8px;
+  }
+
+.profilePicture{
+  width: 100%;
+  height: 100%;
+  max-height: 150px;
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.buttonRow{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+}
+
+.inputRow {
+  display: flex;
+  
+}
+
+.inputRow label{
+  width: 100px;          /*Feste Breite für Labels */
+  margin-right: 10px;   /* Abstand zwischen Label und Input */
+  text-align: left;    /* Text rechtsbündig im Label */
+}
+.inputRow input{ 
+  flex: 1;              /* Input nimmt den restlichen Platz ein */
+  padding: 4px 8px;
+  max-width: 150px;
+  width:100px;
+}

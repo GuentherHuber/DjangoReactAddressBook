@@ -1,0 +1,21 @@
+.addressCardContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+}
+
+.headerContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: lightblue;
+    gap:20px;
+    border-radius: 20px;
+}
+
+.inputSearch{
+    width: 400px;
+    margin-bottom: 10px;
+}
