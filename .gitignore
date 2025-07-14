@@ -3,3 +3,4 @@
 *.pyc
 .env
 /backend/media/images
+/backend/db.sqlite3
