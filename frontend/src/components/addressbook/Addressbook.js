@@ -22,6 +22,12 @@ function Addressbook(){
         })
     },[])
 
+    function addNewAddress(newAddressJson){
+      const copyAddresses=[...addresses]
+      copyAddresses.push(newAddressJson);
+      setAddresses(copyAddresses);
+    }
+
     function deleteAddressById(id){
       return deleteAddressInBackend(id)
       //Ab hier State-Handling
@@ -43,11 +49,6 @@ function Addressbook(){
       }
     };
 
-    function addNewAddress(newAddressJson){
-      const copyAddresses=[...addresses]
-      copyAddresses.push(newAddressJson);
-      setAddresses(copyAddresses);
-    }
 
     function onClickButtonNewAddress(event){
       setEditId("neu");

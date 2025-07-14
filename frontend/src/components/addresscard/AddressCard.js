@@ -20,8 +20,12 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
         //Neue Adresse wird gespeichert
         if(id==="new"){
             const formData=new FormData();
+            console.log(profile_picture);
             for(let key in form){
                 if(key==='id'){//Id für neue Adresse ist "new". Id wird beim Anlegen per POST automtisich vergeben und wird daher hier ignoriert
+                    continue;
+                }
+                if(key==='profile_picture' && (form[key]===undefined || form[key]===null)){//Wenn kein Bild angegeben ist, wird profile_picture nicht an formData angehängt
                     continue;
                 }
                 formData.append(key,form[key]);
@@ -41,15 +45,13 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
         }
         //Änderung an bestehender Adresse wird gespeichert
         else{
-            console.log("profilepicture:",form.profile_picture);
             const formData=new FormData();
             for(let key in form){
+                if(key==='profile_picture' && (form[key]===undefined || form[key]===null)){//Wenn kein Bild angegeben ist, wird profile_picture nicht an formData angehängt
+                    continue;
+                }
                 formData.append(key,form[key]);
-            }
-            for (let [key,value] of formData.entries()){
-                console.log(key,value);
-            }
-
+            }        
             updateBackendData(formData)
             .then(function(response){
                 if(!response.success){
