@@ -1,6 +1,6 @@
 import "./AddressCard.css"
 import { useState } from "react";
-import { updateBackendData,addNewAddressToBackend} from "../addressbook/AddressbookBackendApi";
+import { updateBackendData,addNewAddressToBackend,deleteAddressInBackend} from "../addressbook/AddressbookBackendApi";
 
 function AddressCard({id,first_name,last_name,city,street_name,house_number,postcode,profile_picture,
                         deleteAddressById, handleEditId,editId,addNewAddress}){
@@ -9,7 +9,16 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
     const [prevForm,setPrevForm]=useState({id,first_name,last_name,city,street_name,house_number,postcode,profile_picture});
 
     function onClickButtonDelete(){
-        deleteAddressById(form.id);
+        deleteAddressInBackend(form.id)
+        .then(function(respsonse){
+            if(!respsonse.success){
+                //Es muss eine Fehlermeldung angezeigt werden
+            }
+            else{
+                deleteAddressById(form.id);
+            }
+        })
+        
     }
 
     function onClickButtonEdit(){

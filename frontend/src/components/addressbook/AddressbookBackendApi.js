@@ -26,7 +26,8 @@ export function loadDataFromBackend(){
 
 //Method DELETE sendet als Antwort kein JSON. Daher nicht respsonse.json()
 export function deleteAddressInBackend(id){
-    return fetch(apiUrl+"/"+id+"/",{
+    console.log("url:",apiUrl);
+    return fetch(apiUrl+id+"/",{
         method:"DELETE",
         headers:{"Content-Type":"application/json"},
     })

@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import AddressCard from "../addresscard/AddressCard";
-import { loadDataFromBackend,deleteAddressInBackend} from "./AddressbookBackendApi";
+import { loadDataFromBackend} from "./AddressbookBackendApi";
 import "./Addressbook.css"
 
 function Addressbook(){
@@ -29,16 +29,10 @@ function Addressbook(){
     }
 
     function deleteAddressById(id){
-      return deleteAddressInBackend(id)
-      //Ab hier State-Handling
-      .then(function(response){
-        if(response.success){
-            setAddresses(function(prev){
-              return prev.filter(function(address){
-                return address.id!==id;
-              })
-            })            
-        }
+      setAddresses(function(prev){
+        return prev.filter(function(address){
+          return address.id!==id;
+        })
       })
     }
 
@@ -48,7 +42,6 @@ function Addressbook(){
         setNewCardVisible(false);
       }
     };
-
 
     function onClickButtonNewAddress(event){
       setEditId("neu");
