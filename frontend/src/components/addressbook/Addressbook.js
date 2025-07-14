@@ -45,7 +45,6 @@ function Addressbook(){
 
     function onClickButtonNewAddress(event){
       setEditId("neu");
-      console.log("editId:",editId)
       setNewCardVisible(true);
     };
 

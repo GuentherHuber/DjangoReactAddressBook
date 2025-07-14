@@ -56,7 +56,8 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
         else{
             const formData=new FormData();
             for(let key in form){
-                if(key==='profile_picture' && (form[key]===undefined || form[key]===null)){//Wenn kein Bild angegeben ist, wird profile_picture nicht an formData angehängt
+                if((key==='profile_picture' && 
+                    (form[key]===undefined || form[key]===null || !(form[key] instanceof File)))){ //Wenn kein Bild (neues) angegeben ist, wird profile_picture nicht an formData angehängt
                     continue;
                 }
                 formData.append(key,form[key]);
@@ -66,8 +67,9 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                 if(!response.success){
                     setForm(prevForm);
                 }
-                else{
+                else{                                        
                     setPrevForm(form);
+                    setForm(response.response);
                     handleEditId(null);
                 }
             })
@@ -140,7 +142,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
 
         return(
             <div className="addressCard">
-                {<img src={profile_picture} alt="profilePicture" className="profilePicture"/>}
+                {<img src={form.profile_picture} alt="profilePicture" className="profilePicture"/>}
                 <div className="addressContent">                    
                     <h3>{form.first_name} {form.last_name} </h3>
                     <p>{form.street_name} {form.house_number}</p>
