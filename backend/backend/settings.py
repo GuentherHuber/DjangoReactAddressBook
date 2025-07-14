@@ -35,7 +35,7 @@ DEBUG = True
 
 if APP_ENV=='production':
     ALLOWED_HOSTS = [
-        'https://djangoreacttutorial.onrender.com',
+        'djangoreacttutorial.onrender.com',
         ]
 else:
     ALLOWED_HOSTS = [
