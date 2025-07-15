@@ -72,6 +72,8 @@ MIDDLEWARE = [
 if APP_ENV=='production':
     CORS_ALLOWED_ORIGINS=[
         'https://djangoreacttutorialfrontend.onrender.com',
+        'djangoreacttutorial.onrender.com',
+        '.onrender.com',
     ]
 else:
     CORS_ALLOWED_ORIGINS=[
