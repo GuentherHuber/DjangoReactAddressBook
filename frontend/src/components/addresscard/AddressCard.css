@@ -10,6 +10,14 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     gap:40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.addressCard:hover{
+  transform: scale(1.05); /* Vergrößert die Karte leicht */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Schatten verstärken */
+  cursor: pointer; /* Zeigt Mauszeiger als Hand */
+
 }
 
 .addressContent{

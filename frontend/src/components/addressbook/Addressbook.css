@@ -14,7 +14,30 @@
     border-radius: 20px;
 }
 
+.headerContainer button{
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.headerContainer button:hover{
+    transform: scale(1.3); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Schatten verstärken */
+}
+
 .inputSearch{
     width: 400px;
     margin-bottom: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputSearch:focus{
+    transform: scale(1.2); /* Vergrößert die Karte leicht */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Schatten verstärken */
+    background-color: aliceblue;
+}
+
+.inputSearch:hover{
+    transform: scale(1.3); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Schatten verstärken */
 }
