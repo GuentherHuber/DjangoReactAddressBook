@@ -20,7 +20,7 @@ export function loadDataFromBackend(){
         }
     })
     .catch(function(error){
-        return{success:false,response:error};
+        throw error;
     })
 }
 
@@ -41,7 +41,7 @@ export function deleteAddressInBackend(id){
         }            
     })
     .catch(function(error){
-        return{success:false,response:error};
+        throw error;
     })
 }
 
@@ -65,7 +65,7 @@ export function updateBackendData(formData){
         }
     })
     .catch(function(error){
-        return{success:false,response:error};
+        throw error;
     })
 }
 
@@ -89,7 +89,7 @@ export function addNewAddressToBackend(formData){
         }
     })
     .catch(function(error){
-        return {success:false,response:error};
+        throw error;
     })
 }
   

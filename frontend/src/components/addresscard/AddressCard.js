@@ -1,25 +1,26 @@
 import "./AddressCard.css"
 import { useState } from "react";
 import { updateBackendData,addNewAddressToBackend,deleteAddressInBackend} from "../addressbook/AddressbookBackendApi";
+import { collectErrorMessages } from "./AddressCardHelperFunctions";
 
 function AddressCard({id,first_name,last_name,city,street_name,house_number,postcode,profile_picture,
-                        deleteAddressById, handleEditId,editId,addNewAddress}){
+                        deleteAddressById, handleEditId,editId,addNewAddress,handleErros}){
 
     const [form,setForm]=useState({id,first_name,last_name,city,street_name,house_number,postcode,profile_picture});
     const [prevForm,setPrevForm]=useState({id,first_name,last_name,city,street_name,house_number,postcode,profile_picture});
 
     function onClickButtonDelete(){
         deleteAddressInBackend(form.id)
-        .then(function(respsonse){
-            if(!respsonse.success){
-                console.error(respsonse.response);
+        .then(function(response){
+            if(!response.success){
+                handleErros(collectErrorMessages(response.response));
             }
             else{
                 deleteAddressById(form.id);
             }
         })
         .catch(function(error){
-            console.error(error);
+            handleErros(['Serverfehler!']);
         })
     }
 
@@ -44,16 +45,17 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
             addNewAddressToBackend(formData)
             .then(function(response){
                 if(!response.success){
-                        console.error(response.response);
+                    handleErros(collectErrorMessages(response.response));
                 }
                 else{
                     addNewAddress(response.response);
                     setPrevForm(response.response);
+                    handleErros([]);
                     handleEditId(null);                    
                 }
             })
             .catch(function(error){
-                console.error(error);
+                handleErros(['Serverfehler!'])
             })
             return;
         }
@@ -69,7 +71,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
             updateBackendData(formData)
             .then(function(response){
                 if(!response.success){
-                    console.error(response.response);
+                    handleErros(collectErrorMessages(response.response));
                     setForm(prevForm);
                 }
                 else{                                        
@@ -79,7 +81,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                 }
             })
             .catch(function(error){
-                console.error(error);
+                handleErros(['Serverfehler!'])
             })
         }
     }
