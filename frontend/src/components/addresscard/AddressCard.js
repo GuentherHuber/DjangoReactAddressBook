@@ -34,7 +34,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                 if(key==='id'){//Id für neue Adresse ist "new". Id wird beim Anlegen per POST automtisich vergeben und wird daher hier ignoriert
                     continue;
                 }
-                if(key==='profile_picture' && (form[key]===undefined || form[key]===null)){//Wenn kein Bild angegeben ist, wird profile_picture nicht an formData angehängt
+                if(key==='profile_picture' && !(form[key] instanceof File)){//Wenn kein Bild angegeben ist, wird profile_picture nicht an formData angehängt
                     continue;
                 }
                 formData.append(key,form[key]);
@@ -46,7 +46,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                 }
                 else{
                     addNewAddress(response.response);
-                    setPrevForm(form);
+                    setPrevForm(response.response);
                     handleEditId(null);                    
                 }
             })
@@ -56,8 +56,7 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
         else{
             const formData=new FormData();
             for(let key in form){
-                if((key==='profile_picture' && 
-                    (form[key]===undefined || form[key]===null || !(form[key] instanceof File)))){ //Wenn kein Bild (neues) angegeben ist, wird profile_picture nicht an formData angehängt
+                if((key==='profile_picture' && !(form[key] instanceof File))){ //Wenn kein Bild (neues) angegeben ist, wird profile_picture nicht an formData angehängt
                     continue;
                 }
                 formData.append(key,form[key]);
@@ -68,8 +67,8 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                     setForm(prevForm);
                 }
                 else{                                        
-                    setPrevForm(form);
                     setForm(response.response);
+                    setPrevForm(form);
                     handleEditId(null);
                 }
             })
