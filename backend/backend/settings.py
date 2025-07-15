@@ -36,6 +36,7 @@ DEBUG = True
 if APP_ENV=='production':
     ALLOWED_HOSTS = [
         'djangoreacttutorial.onrender.com',
+        '.onrender.com',
         ]
 else:
     ALLOWED_HOSTS = [
@@ -71,9 +72,7 @@ MIDDLEWARE = [
 
 if APP_ENV=='production':
     CORS_ALLOWED_ORIGINS=[
-        'https://djangoreacttutorialfrontend.onrender.com',
-        'djangoreacttutorial.onrender.com',
-        '.onrender.com',
+        'https://djangoreacttutorialfrontend.onrender.com',        
     ]
 else:
     CORS_ALLOWED_ORIGINS=[
