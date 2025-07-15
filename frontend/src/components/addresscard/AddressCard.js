@@ -139,7 +139,6 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
     }
 
     else{
-
         return(
             <div className="addressCard">
                 {<img src={form.profile_picture} alt="profilePicture" className="profilePicture"/>}
