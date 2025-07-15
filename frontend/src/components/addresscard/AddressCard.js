@@ -12,11 +12,14 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
         deleteAddressInBackend(form.id)
         .then(function(respsonse){
             if(!respsonse.success){
-                //Es muss eine Fehlermeldung angezeigt werden
+                console.error(respsonse.response);
             }
             else{
                 deleteAddressById(form.id);
             }
+        })
+        .catch(function(error){
+            console.error(error);
         })
     }
 
@@ -41,13 +44,16 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
             addNewAddressToBackend(formData)
             .then(function(response){
                 if(!response.success){
-                    //Es muss eine Fehlermeldung angezeigt werden
+                        console.error(response.response);
                 }
                 else{
                     addNewAddress(response.response);
                     setPrevForm(response.response);
                     handleEditId(null);                    
                 }
+            })
+            .catch(function(error){
+                console.error(error);
             })
             return;
         }
@@ -62,8 +68,8 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
             }        
             updateBackendData(formData)
             .then(function(response){
-                console.log(response);
                 if(!response.success){
+                    console.error(response.response);
                     setForm(prevForm);
                 }
                 else{                                        
@@ -71,6 +77,9 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                     setPrevForm(response.response);
                     handleEditId(null);
                 }
+            })
+            .catch(function(error){
+                console.error(error);
             })
         }
     }
