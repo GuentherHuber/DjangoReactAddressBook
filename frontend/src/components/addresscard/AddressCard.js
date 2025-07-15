@@ -18,7 +18,6 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
                 deleteAddressById(form.id);
             }
         })
-        
     }
 
     function onClickButtonEdit(){
@@ -63,12 +62,13 @@ function AddressCard({id,first_name,last_name,city,street_name,house_number,post
             }        
             updateBackendData(formData)
             .then(function(response){
+                console.log(response);
                 if(!response.success){
                     setForm(prevForm);
                 }
                 else{                                        
                     setForm(response.response);
-                    setPrevForm(form);
+                    setPrevForm(response.response);
                     handleEditId(null);
                 }
             })
