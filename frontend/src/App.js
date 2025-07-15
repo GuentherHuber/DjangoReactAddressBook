@@ -34,7 +34,7 @@ import Addressbook from './components/addressbook/Addressbook';
 function App(){
 
   
-  useEffect(function(event){
+  /*useEffect(function(event){
     fetch('http://127.0.0.1:8000/addressbook/api/')
     .then(function(response){
       return response.json();
@@ -45,7 +45,7 @@ function App(){
     .catch(function(error){
       console.error("Fehler beim Laden");
     })
-  },[])
+  },[])*/
 
   return(
     <Router>
