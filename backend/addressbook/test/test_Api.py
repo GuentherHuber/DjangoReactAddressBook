@@ -57,6 +57,7 @@ class AddressApiTest(APITestCase):
 
     
     def test_new_address(self):
+        #Prüfe ob Anlegen einer neuer Adresse funktioniert
         base_dir=(os.path.dirname(os.path.abspath(__file__)))
         with open (os.path.join(base_dir,'artifacts','profilePicture.jpg'),'rb') as imageFile:
             data={
@@ -85,3 +86,19 @@ class AddressApiTest(APITestCase):
             self.assertTrue('/media/images/profilePicture' in response.data['profile_picture'])
             self.assertTrue(response.data['profile_picture'].endswith('.jpg'))
 
+        #Prüfe ob Abrufen einer Adresse per ID funktioniert
+        response=self.client.get('/addressbook/api/'+str(response.data['id'])+"/")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['first_name'],data['first_name'])
+        self.assertEqual(response.data['last_name'],data['last_name'])
+        self.assertEqual(response.data['city'],data['city'])
+        self.assertEqual(response.data['street_name'],data['street_name'])
+        self.assertEqual(response.data['house_number'],data['house_number'])
+        self.assertEqual(response.data['postcode'],data['postcode'])
+        self.assertTrue('/media/images/profilePicture' in response.data['profile_picture'])
+        self.assertTrue(response.data['profile_picture'].endswith('.jpg'))
+
+
+#Test Update
+#Test Löschen
+  
