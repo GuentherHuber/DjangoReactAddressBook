@@ -51,10 +51,18 @@ class AddressApiTest(APITestCase):
     def test_similar_address(self):
         base_dir=(os.path.dirname(os.path.abspath(__file__)))
         with open (os.path.join(base_dir,'artifacts','profilePicture.jpg'),'rb') as imageFile:
-            self.initialData['profile_picture']=imageFile
-            response=self.client.post('/addressbook/api/',self.initialData,format='multipart')
-        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        self.assertIn('Eintrag im Adressbuch bereits vorhanden!',str(response.data))
+            data={
+                'first_name':self.initialData['first_name'],
+                'last_name':self.initialData['last_name'],
+                'city':'Hauptstadt',
+                'street_name':'Hauptstraße',
+                'house_number':'123',
+                'postcode':54321,
+                'profile_picture':imageFile
+            }
+            response=self.client.post('/addressbook/api/',data,format='multipart')
+            self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+            self.assertIn('Adresse bereits vorhanden!',str(response.data))
 
     #Test ob anlegen einer neuen Adresse funktioniert
     def test_new_address(self):
@@ -119,8 +127,8 @@ class AddressApiTest(APITestCase):
         self.assertEqual(response.data['house_number'],data['house_number'])
         self.assertEqual(response.data['postcode'],data['postcode'])
 
-    #Teste ob ändern einer Adresse funtkioniert
-    def test_update_address(self):
+    #Teste ob ändern einer Adresse mit anderen Daten funtkioniert
+    def test_update_address_with_other_data(self):
         base_dir=(os.path.dirname(os.path.abspath(__file__)))
         with open (os.path.join(base_dir,'artifacts','profilePicture.jpg'),'rb') as imageFile:
             self.initialData['profile_picture']=imageFile
@@ -141,7 +149,35 @@ class AddressApiTest(APITestCase):
             self.assertEqual(response.data['postcode'],self.initialData['postcode'])
             self.assertTrue('/media/images/profilePicture' in response.data['profile_picture'])
             self.assertTrue(response.data['profile_picture'].endswith('.jpg'))
-    
+
+    #Test ob ändern einer Adresse mit gleichen daten funktioniert
+    def test_upate_address_with_same_data(self):
+        base_dir=(os.path.dirname(os.path.abspath(__file__)))
+        with open (os.path.join(base_dir,'artifacts','profilePicture.jpg'),'rb') as imageFile:
+            data={
+                    'first_name':self.initialData['first_name'],
+                    'last_name':self.initialData['last_name'],
+                    'city':self.initialData['city'],
+                    'street_name':self.initialData['street_name'],
+                    'house_number':self.initialData['house_number'],
+                    'postcode':self.initialData['postcode'],
+                    'profile_picture':imageFile
+                }
+            response=self.client.patch('/addressbook/api/'+str(self.initialData['id'])+"/",data,format='multipart')
+
+            splittedPictureUrl=response.data['profile_picture'].split('http://testserver/')[1]
+            self.picturePath.append(os.path.abspath(os.path.join(base_dir,'..','..',splittedPictureUrl)))
+
+            self.assertEqual(response.status_code,status.HTTP_200_OK)
+            self.assertEqual(response.data['first_name'],data['first_name'])
+            self.assertEqual(response.data['last_name'],data['last_name'])
+            self.assertEqual(response.data['city'],data['city'])
+            self.assertEqual(response.data['street_name'],data['street_name'])
+            self.assertEqual(response.data['house_number'],data['house_number'])
+            self.assertEqual(response.data['postcode'],data['postcode'])
+            self.assertTrue('/media/images/profilePicture' in response.data['profile_picture'])
+            self.assertTrue(response.data['profile_picture'].endswith('.jpg'))
+
     def test_empty_first_name(self):
         base_dir=(os.path.dirname(os.path.abspath(__file__)))
         with open (os.path.join(base_dir,'artifacts','profilePicture.jpg'),'rb') as imageFile:
