@@ -9,11 +9,10 @@ class AddressSerializer(serializers.ModelSerializer):
             fields=['id','first_name','last_name','city','street_name','house_number','postcode','profile_picture']
 
       #Verhindere dopplete Einträge
-      def validate(self, data):
-            if Address.objects.filter(first_name=data.get('first_name'),last_name=data.get('last_name'),city=data.get('city'),
-                                      street_name=data.get('street_name'),house_number=data.get('house_number'),postcode=data.get('postcode')).exists():
-                  raise serializers.ValidationError("Eintrag im Adressbuch bereits vorhanden!")
-            return data
+      def create(self, validated_data):
+            if Address.objects.filter(first_name=validated_data.get('first_name'),last_name=validated_data.get('last_name')).exists():
+                  raise serializers.ValidationError("Adresse bereits vorhanden!")
+            return super().create(validated_data)
 
       def validate_first_name(self,value):
             if not value.strip():

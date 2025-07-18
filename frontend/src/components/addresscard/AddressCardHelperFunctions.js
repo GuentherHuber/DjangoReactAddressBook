@@ -1,7 +1,15 @@
 export function collectErrorMessages(response){
     let errorArray=[];
-    for (let error in response){
-        errorArray.push(response[error][0]);
+    if(Array.isArray(response)){
+        console.log("isArray")
+        response.forEach(function(value){
+            errorArray.push(value)
+        })
+    }
+    else{
+       for(let [key] of Object.entries(response)){
+            errorArray.push(response[key])
+       }
     }
     return errorArray;
 }
