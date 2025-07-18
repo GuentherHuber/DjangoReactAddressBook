@@ -323,7 +323,7 @@ class AddressApiTest(APITestCase):
             #Post http request with invalid/empty postcode
             response=self.client.post('/addressbook/api/',data,format='multipart')
             self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-            self.assertIn('PLZ muss aus genau 4 Ziffern bestehen!',str(response.data['postcode']))
+            self.assertIn('PLZ muss aus genau 5 Ziffern bestehen!',str(response.data['postcode']))
             #Get amount of address entries after post
             response=self.client.get('/addressbook/api/')
             entriesAfter=entriesBefore=len(response.data)
