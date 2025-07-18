@@ -41,6 +41,8 @@ class AddressSerializer(serializers.ModelSerializer):
             return value
       
       def validate_postcode(self,value):
+            if len(str(value))==0 or value==None:
+                  raise serializers.ValidationError("PLZ darf nicht leer sein!")
             if len(str(value))!=5:
                   raise serializers.ValidationError("PLZ muss aus genau 5 Ziffern bestehen!")
             return value
