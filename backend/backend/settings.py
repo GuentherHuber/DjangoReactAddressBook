@@ -102,12 +102,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
 if APP_ENV=='production':
-    DATABASES = {
-        'default':
-            dj_database_url.parse('postgres://mydatabase_0qn6_user:hUt1gVT1mkoqGanG85wxRBItzJ31rmqG@dpg-d1mhgk2li9vc739jq16g-a:5432/mydatabase_0qn6')
-    }
+    DATABASES={
+        'default':{
+                    'ENGINE':'django.db.backends.postgresql',
+                    'NAME':os.getenv('DB_NAME'),
+                    'USER':os.getenv('DB_USER'),
+                    'PASSWORD':os.getenv('DB_PASSWORD'),
+                    'HOST':os.getenv('DB_HOST'),
+                    'PORT':os.getenv('DB_PORT')
+                }
+            }
 else:
      DATABASES = {
         'default': {
